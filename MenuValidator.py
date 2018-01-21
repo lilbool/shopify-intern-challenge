@@ -11,8 +11,7 @@ class MenuValidator:
 		self.menus = {}
 
 	def validate(self):
-		'''
-		The main function to be called. Calls helper functions that pull data from
+		'''The main function to be called. Calls helper functions that pull data from
 		the API, checks whether each path down each root node is a valid menu, then
 		outputs the valid and invalid menus to a file called challenge1_output.json and challenge2_output.json
 		'''
@@ -21,8 +20,7 @@ class MenuValidator:
 		self.createJSONOutput()
 
 	def callAPI(self, page):
-		'''
-		calls a page backend summer challenge 2018's API and returns the result
+		'''calls a page backend summer challenge 2018's API and returns the result
 		return type: requests.models.Response
 		'''
 		params = dict(
@@ -32,8 +30,7 @@ class MenuValidator:
 		return r.get(url=self.url, params=params)
 
 	def pullData(self):
-		'''
-		Goes through the API's pages filling self.root_nodes with the root nodes and self.menus with all nodes
+		'''Goes through the API's pages filling self.root_nodes with the root nodes and self.menus with all nodes
 		return type: None
 		'''
 		
@@ -59,8 +56,7 @@ class MenuValidator:
 					self.menus[menu_item['id']] =  menu_item['child_ids']
 
 	def traverseDown(self, node, root_node, path_list):
-		'''
-		Checks for cyclical references by recursing down the path from the given
+		'''Checks for cyclical references by recursing down the path from the given
 		root node and fills up path_list with all the nodes on that path. If a 
 		duplicate is present, it sets the 'valid' key for the given root node to 
 		false in root_nodes. 
@@ -78,8 +74,7 @@ class MenuValidator:
 				self.traverseDown(child, root_node, path_list)
 
 	def validateEachPath(self):
-		'''
-		Iterates over the root nodes and applies traverseDown() to each root node
+		'''Iterates over the root nodes and applies traverseDown() to each root node
 		and maps the 'children' key in root_nodes to a list containing all the
 		children of that root node.
 		'''
@@ -89,8 +84,7 @@ class MenuValidator:
 			self.root_nodes[root]['children'] = path
 
 	def createJSONOutput(self):
-		'''
-		Reads root_nodes dictionary to check whether each path is valid.
+		'''Reads root_nodes dictionary to check whether each path is valid.
 		Creates a json dictionary that contains each root node and whether
 		it's a valid menu or not and it's children that are placed under the
 		keys 'valid_menus' and 'invalid_menus' accordingly.
